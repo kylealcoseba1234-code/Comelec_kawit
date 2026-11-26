@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#173d4b">
+  <meta name="description" content="Discover Comelec Village in Barangay San Sebastian, Kawit, Cavite. Explore a place where your family's next chapter can begin.">
+  <title>Comelec Village | Masaito Homes — Kawit, Cavite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #183946;
+      --ink-2: #365967;
+      --cream: #edf4f1;
+      --paper: #fbfdfc;
+      --sand: #dce9e4;
+      --olive: #6d9b83;
+      --olive-dark: #28644f;
+      --gold: #7eaeb6;
+      --muted: #667b7d;
+      --line: rgba(24,57,70,.14);
+      --serif: 'Playfair Display', Georgia, serif;
+      --sans: 'DM Sans', Arial, sans-serif;
+      --shadow: 0 24px 70px rgba(24,57,70,.10);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); line-height: 1.65; overflow-x: hidden; }
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea { font: inherit; }
+    img { display: block; max-width: 100%; }
+    .wrap { width: min(1160px, calc(100% - 48px)); margin: 0 auto; }
+
+    /* PRELOADER */
+    #preloader {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: linear-gradient(160deg, #102f3a 0%, #173f4d 58%, #1e4e58 100%);
+      color: #f0f7f4;
+      text-align: center;
+      transition: opacity .55s ease, visibility .55s ease;
+    }
+    #preloader.is-done {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    .loader-card {
+      max-width: 380px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+    }
+    .loader-logo-wrap {
+      background: rgba(251, 253, 252, 0.94);
+      padding: 14px 20px;
+      border-radius: 14px;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, .28);
+      animation: loaderPulse 2.1s ease-in-out infinite;
+    }
+    .loader-logo-wrap img {
+      max-height: 68px;
+      width: auto;
+      object-fit: contain;
+    }
+    @keyframes loaderPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+    }
+    .loader-kicker {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: #b8d8cc;
+    }
+    .loader-title {
+      font-family: var(--serif);
+      font-size: 28px;
+      font-weight: 400;
+      line-height: 1.2;
+      margin: 0;
+      color: #ffffff;
+    }
+    .loader-sub {
+      font-size: 13px;
+      color: #c4d6d1;
+      margin: 0;
+    }
+    .loader-track {
+      width: 210px;
+      height: 3px;
+      background: rgba(255, 255, 255, .18);
+      overflow: hidden;
+      border-radius: 999px;
+      margin-top: 4px;
+    }
+    .loader-bar {
+      width: 55%;
+      height: 100%;
+      background: #8fc3b0;
+      border-radius: 999px;
+      animation: loaderSlide 1.25s ease-in-out infinite;
+    }
+    @keyframes loaderSlide {
+      0% { transform: translateX(-110%); }
+      50% { transform: translateX(65%); }
+      100% { transform: translateX(210%); }
+    }
+    .loader-skip {
+      margin-top: 4px;
+      background: transparent;
+      border: 0;
+      color: #b8d8cc;
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      cursor: pointer;
+    }
+    .loader-skip:hover { color: #ffffff; }
+
+    .eyebrow { display: inline-flex; align-items: center; gap: 11px; color: var(--olive-dark); font-size: 10px; font-weight: 700; letter-spacing: .19em; text-transform: uppercase; }
+    .eyebrow:before { content: ''; width: 28px; height: 1px; background: var(--gold); }
+    h1,h2,h3,p { margin-top: 0; }
+    h1,h2,h3 { font-family: var(--serif); font-weight: 400; line-height: 1.12; letter-spacing: -.025em; }
+    h1 { font-size: clamp(48px, 6.1vw, 78px); max-width: 720px; margin: 23px 0 22px; }
+    h2 { font-size: clamp(36px, 4.6vw, 58px); margin: 17px 0 22px; }
+    h3 { font-size: 27px; margin-bottom: 12px; }
+    .lead { color: #e7e4da; font-size: clamp(16px, 1.6vw, 19px); max-width: 590px; line-height: 1.8; }
+    .muted { color: var(--muted); }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 12px; min-height: 54px; padding: 0 25px; border: 1px solid transparent; background: var(--olive-dark); color: #fffdf8; font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; cursor: pointer; transition: .25s ease; }
+    .btn:hover { background: var(--ink); transform: translateY(-2px); }
+
+    /* TOPBAR */
+    .topbar { position: absolute; z-index: 5; top: 0; left: 0; right: 0; color: white; border-bottom: 1px solid rgba(255,255,255,.12); }
+    .nav { min-height: 84px; display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+    .brand { display: flex; flex-direction: column; line-height: 1.2; }
+    .brand strong { font-family: var(--serif); font-size: 21px; font-weight: 500; letter-spacing: -.01em; }
+    .brand span { margin-top: 4px; font-size: 9px; letter-spacing: .2em; text-transform: uppercase; opacity: .8; }
+
+    .hero { min-height: 760px; display: flex; align-items: center; position: relative; color: white; overflow: hidden; background: #153d4a; }
+    .hero:before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, rgba(13,43,55,.82) 0%, rgba(13,43,55,.58) 48%, rgba(13,43,55,.12) 100%),
+      linear-gradient(0deg, rgba(13,43,55,.34), transparent 48%),
+      url('https://drive.google.com/thumbnail?id=1tcsbeIkir9nn44NGw7DMohZZy8yg3g7U&sz=w2200') center/cover;
+      transform: scale(1.01);
+    }
+    .hero:after { content: ''; position: absolute; inset: auto 0 0; height: 100px; background: linear-gradient(transparent, rgba(20,29,23,.18)); }
+    .hero-content { position: relative; z-index: 1; padding: 160px 0 110px; }
+    .hero .eyebrow { color: #b8d8cc; }
+    .hero .lead { margin-bottom: 30px; }
+    .hero-note { margin-top: 45px; display: flex; align-items: center; gap: 14px; color: rgba(240,249,246,.78); font-size: 11px; letter-spacing: .04em; }
+    .hero-note:before { content: ''; width: 44px; height: 1px; background: #8fc3b0; }
+
+    .intro { padding: 120px 0 112px; background: #edf4f1; }
+    .intro-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 12%; align-items: start; }
+    .intro h2 { max-width: 440px; }
+    .story-copy { max-width: 620px; color: #526c70; font-size: 16px; line-height: 1.95; }
+    .story-copy p { margin-bottom: 19px; }
+    .story-copy .signature { color: #28644f; font-family: var(--serif); font-size: 25px; font-style: italic; margin-top: 26px; }
+
+    .image-story { padding: 0 0 120px; background: #edf4f1; }
+    .image-story-grid { display: grid; grid-template-columns: 1.12fr .88fr; gap: 22px; align-items: stretch; }
+    .photo { min-height: 510px; background-size: cover; background-position: center; position: relative; border-radius: 4px; overflow: hidden; }
+    .photo:after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(16,47,58,.05) 35%, rgba(16,47,58,.68) 100%); }
+    .photo-main { background-image: url('https://drive.google.com/thumbnail?id=1NCKtGXB8_6XhY7RPGEWG0m7e6LhljZkv&sz=w1600'); }
+    .photo-side { min-height: 510px; background-image: url('https://drive.google.com/thumbnail?id=1jK_suEySCJsgi9wcdbX9Qw00cUCEQe8C&sz=w1600'); }
+    .photo-caption { position: relative; z-index: 1; position: absolute; left: 28px; bottom: 26px; color: white; font-family: var(--serif); font-size: 26px; text-shadow: 0 2px 15px rgba(0,0,0,.45); }
+
+    .section { padding: 118px 0; }
+    .section-head { max-width: 700px; margin-bottom: 55px; }
+    .section-head.center { text-align: center; margin-left: auto; margin-right: auto; }
+    .section-head.center .eyebrow { justify-content: center; }
+    .section-head p, .location-copy p, .unit-body p, .step p, details p { color: #667b7d; font-size: 15px; line-height: 1.85; }
+    .section-head.center p { margin-left: auto; margin-right: auto; }
+
+    .outcomes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(24,57,70,.12); border: 1px solid rgba(24,57,70,.12); }
+    .outcome { background: #fbfdfc; padding: 37px 32px 34px; min-height: 245px; }
+    .outcome .num, .step span { color: #6d9b83; font-family: var(--serif); font-size: 17px; }
+    .outcome h3 { margin: 21px 0 12px; font-size: 25px; }
+    .outcome p { font-size: 13px; line-height: 1.8; margin-bottom: 0; }
+
+    .quote-band { padding: 104px 0; background: #173f4d; color: #f0f7f4; text-align: center; }
+    .quote-band blockquote { max-width: 850px; margin: 0 auto; font-family: var(--serif); font-size: clamp(30px, 4.3vw, 52px); line-height: 1.3; }
+    .quote-band p { margin: 25px 0 0; color: #b8d0ca; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; }
+
+    .location { background: #e5efeb; }
+    .location-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9%; align-items: center; }
+    .location-art { min-height: 470px; background: url('https://drive.google.com/thumbnail?id=1rZiwsfxcx_21Rl8Njxpskcgsnn4SbueN&sz=w1600') center/cover; border-radius: 4px; }
+    .location-copy p { line-height: 1.9; font-size: 15px; }
+    .location-pin { display: inline-flex; gap: 10px; align-items: center; margin-top: 18px; padding: 15px 18px; border: 1px solid rgba(24,57,70,.18); font-size: 12px; color: #28644f; }
+
+    .models { background: var(--paper); }
+    .model-note { padding: 20px 24px; background: #edf4f1; color: var(--muted); font-size: 12px; line-height: 1.8; margin-top: 30px; }
+    .model-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .unit-card { border: 1px solid rgba(24,57,70,.13); background: #fff; display: flex; flex-direction: column; transition: transform .25s ease, box-shadow .25s ease; }
+    .unit-card:hover { transform: translateY(-4px); box-shadow: 0 18px 42px rgba(24,57,70,.09); }
+    .unit-photo { height: 215px; background-size: cover; background-position: center; background-color: #dcebe5; }
+    .unit-top { min-height: 128px; padding: 22px 25px 18px; background: linear-gradient(145deg, #dcebe5, #eff6f3); position: relative; overflow: hidden; }
+    .unit-top:after { content: '⌂'; position: absolute; right: 17px; bottom: -28px; color: rgba(40,100,79,.12); font-family: var(--serif); font-size: 150px; line-height: 1; }
+    .unit-type { display: inline-block; position: relative; z-index: 1; color: #28644f; font-size: 9px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+    .unit-top h3 { position: relative; z-index: 1; margin: 12px 0 0; font-size: 27px; }
+    .unit-body { padding: 23px 25px 25px; display: flex; flex-direction: column; flex: 1; }
+    .unit-price { font-family: var(--serif); font-size: 23px; color: var(--ink); margin-bottom: 14px; }
+    .unit-price small { display: block; color: var(--muted); font-family: var(--sans); font-size: 9px; letter-spacing: .08em; text-transform: uppercase; }
+    .unit-specs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 0 0 17px; }
+    .unit-spec { padding: 10px 11px; background: #edf4f1; }
+    .unit-spec strong { display: block; font-size: 13px; font-weight: 600; }
+    .unit-spec span { display: block; color: var(--muted); font-size: 9px; letter-spacing: .07em; text-transform: uppercase; }
+    .unit-body p { font-size: 12px; line-height: 1.75; margin-bottom: 0; }
+    .unit-foot { margin-top: auto; padding-top: 17px; color: #28644f; font-size: 10px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; }
+
+    .amenities, .contact { background: #173f4d; color: var(--cream); position: relative; overflow: hidden; }
+    .amenities:before { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(17,57,65,.96), rgba(17,57,65,.82)), url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1800&q=80') center/cover; opacity: .9; }
+    .amenities .wrap { position: relative; z-index: 1; }
+    .amenities .eyebrow, .contact .eyebrow { color: #b8d8cc; }
+    .amenities .section-head p, .amenity p, .amenity-note, .contact-copy p { color: #c1d6d1; }
+    .amenity-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: rgba(220,242,235,.2); border: 1px solid rgba(220,242,235,.2); }
+    .amenity { min-height: 180px; padding: 27px; background: rgba(19,66,70,.86); }
+    .amenity-mark { color: #9bcab7; font-family: var(--serif); font-size: 24px; }
+    .amenity h3 { font-size: 23px; margin: 15px 0 9px; }
+    .amenity p { font-size: 12px; line-height: 1.75; margin: 0; }
+    .amenity-note { margin-top: 20px; font-size: 10px; line-height: 1.7; }
+
+    .steps { background: #edf4f1; }
+    .step-list { display: grid; grid-template-columns: repeat(3,1fr); gap: 35px; }
+    .step { border-top: 1px solid #83b9a4; padding-top: 22px; }
+    .step h3 { margin-top: 20px; }
+    .step p { font-size: 13px; line-height: 1.8; }
+
+    .faq-list { max-width: 820px; margin: 0 auto; border-top: 1px solid var(--line); }
+    details { border-bottom: 1px solid var(--line); padding: 22px 0; }
+    summary { cursor: pointer; font-family: var(--serif); font-size: 21px; list-style: none; display: flex; justify-content: space-between; gap: 20px; }
+    summary::-webkit-details-marker { display: none; }
+    summary:after { content: '+'; font-family: var(--sans); font-size: 20px; color: #4e9277; }
+    details[open] summary:after { content: '−'; }
+    details p { font-size: 14px; line-height: 1.8; max-width: 700px; margin: 16px 0 0; }
+
+    .contact-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 10%; align-items: start; }
+    .contact-copy p { font-size: 15px; line-height: 1.9; max-width: 440px; }
+    .contact-promise { margin-top: 36px; padding-top: 22px; border-top: 1px solid rgba(220,242,235,.22); color: #d1e3de; font-size: 12px; }
+    .form-card { padding: 38px; background: var(--paper); color: var(--ink); box-shadow: var(--shadow); border: 1px solid rgba(24,57,70,.1); }
+    .form-card h3 { font-size: 30px; }
+    .form-card > p { color: var(--muted); font-size: 13px; margin-bottom: 25px; }
+    .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .field { margin-bottom: 16px; }
+    label { display: block; margin-bottom: 7px; font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #5f685f; }
+    input,select,textarea { width: 100%; border: 1px solid #deded5; border-radius: 0; padding: 14px 13px; background: #fff; color: var(--ink); outline: none; font-size: 13px; }
+    input:focus,select:focus,textarea:focus { border-color: #6d9b83; box-shadow: 0 0 0 3px rgba(109,155,131,.14); }
+    textarea { min-height: 95px; resize: vertical; }
+    .consent { display: flex; align-items: flex-start; gap: 10px; color: var(--muted); font-size: 11px; line-height: 1.6; margin: 5px 0 20px; }
+    .consent input { width: 15px; height: 15px; margin-top: 2px; flex: 0 0 auto; }
+    .form-card .btn { width: 100%; background: #28644f; }
+    .form-card .btn:hover { background: #183946; }
+    .form-status { display: none; padding: 13px 15px; margin-top: 15px; font-size: 12px; line-height: 1.6; }
+    .form-status.success { display: block; background: #e9f0e7; color: #334b37; }
+    .form-status.error { display: block; background: #f7e9e5; color: #8b3d2d; }
+    .fine-print { margin-top: 13px; text-align: center; color: #888b82; font-size: 10px; }
+
+    footer { background: #102f3a; color: #c4c8bf; padding: 35px 0; font-size: 11px; }
+    .footer-row { display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+    footer strong { color: white; font-family: var(--serif); font-size: 19px; font-weight: 400; }
+    .disclaimer { max-width: 670px; margin-top: 14px; color: #a6bfba; font-size: 10px; line-height: 1.7; }
+
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity .75s ease, transform .75s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 800px) {
+      .wrap { width: min(100% - 36px, 600px); }
+      .nav { min-height: 74px; }
+      .hero { min-height: 700px; }
+      .hero:before { background-position: 58% center; background-image: linear-gradient(90deg, rgba(13,43,55,.84), rgba(13,43,55,.52)), url('https://drive.google.com/thumbnail?id=1tcsbeIkir9nn44NGw7DMohZZy8yg3g7U&sz=w1400'); }
+      .hero-content { padding: 140px 0 90px; }
+      .intro,.section { padding: 82px 0; }
+      .intro-grid,.location-grid,.contact-grid { grid-template-columns: 1fr; gap: 30px; }
+      .image-story { padding-bottom: 80px; }
+      .image-story-grid { grid-template-columns: 1fr; }
+      .photo,.photo-side { min-height: 340px; }
+      .outcomes,.model-grid,.step-list,.amenity-grid { grid-template-columns: 1fr; }
+      .outcome { min-height: auto; }
+      .location-art { min-height: 330px; order: 2; }
+      .contact-grid { gap: 38px; }
+      .form-card { padding: 25px 20px; }
+      .field-grid { grid-template-columns: 1fr; gap: 0; }
+      .footer-row { align-items: flex-start; flex-direction: column; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .loader-logo-wrap, .loader-bar { animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOADING PAGE / PRELOADER -->
+  <div id="preloader" role="status" aria-live="polite" aria-label="Loading Comelec Village">
+    <div class="loader-card">
+      <div class="loader-logo-wrap">
+        <img
+          src="https://drive.google.com/thumbnail?id=1yAe1HUcVqnhUbZXDwKDqKgzroIjLHE3U&sz=w600"
+          alt="Comelec Village Logo"
+        >
+      </div>
+      <div class="loader-kicker">Comelec Village · Masaito Homes</div>
+      <h2 class="loader-title">A place to begin your next chapter.</h2>
+      <p class="loader-sub">Barangay San Sebastian, Kawit, Cavite</p>
+      <div class="loader-track"><div class="loader-bar"></div></div>
+      <button type="button" class="loader-skip" id="skipPreloaderBtn">Enter now</button>
+    </div>
+  </div>
+
+  <header class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="#top" aria-label="Comelec Village home">
+        <strong>Comelec Village</strong>
+        <span>Masaito Homes · Kawit, Cavite</span>
+      </a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap hero-content">
+        <span class="eyebrow">Comelec Village · Masaito Homes</span>
+        <h1>The best days are made of little things.</h1>
+        <p class="lead">You've spent so much time building a life for the people you love. Maybe the next chapter is finding a place where all those little moments can happen—one ordinary, beautiful day at a time.</p>
+        <div class="hero-note">A quieter kind of everyday, in Kawit, Cavite</div>
+      </div>
+    </section>
+
+    <section class="intro" id="story">
+      <div class="wrap intro-grid">
+        <div class="reveal">
+          <span class="eyebrow">A story that feels familiar</span>
+          <h2>Because home is about more than four walls.</h2>
+        </div>
+        <div class="story-copy reveal">
+          <p>It starts with the little things.</p>
+          <p>The sound of everyone getting ready in the morning. The familiar faces waiting at the end of a long day. Weekend meals that stretch a little longer because no one is in a hurry to leave the table.</p>
+          <p>These moments may seem simple now. But someday, they become the memories your family carries with them.</p>
+          <p>And as you work toward a better future, it's natural to want a place that can be part of that story—a place to settle in, make it your own, and grow into the years ahead.</p>
+          <p>That is the feeling we hope you'll discover at <strong>Comelec Village, Masaito Homes</strong>, in Barangay San Sebastian, Kawit, Cavite.</p>
+          <div class="signature">A place for what matters most.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="image-story">
+      <div class="wrap image-story-grid reveal">
+        <div class="photo photo-main">
+          <div class="photo-caption">Make room for your next chapter.</div>
+        </div>
+        <div class="photo photo-side">
+          <div class="photo-caption">Let the everyday become meaningful.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="lifestyle">
+      <div class="wrap">
+        <div class="section-head center reveal">
+          <span class="eyebrow">Picture the possibilities</span>
+          <h2>A home for the life you're working toward.</h2>
+          <p>It's not just about moving into a new address. It's about the moments, routines, and milestones you can look forward to making your own.</p>
+        </div>
+        <div class="outcomes reveal">
+          <article class="outcome">
+            <span class="num">01 / Together</span>
+            <h3>More moments under one roof.</h3>
+            <p>From shared meals to quiet conversations at the end of the day, make space for the people who make life feel full.</p>
+          </article>
+          <article class="outcome">
+            <span class="num">02 / Belonging</span>
+            <h3>A place you can make your own.</h3>
+            <p>Bring your own traditions, personal touches, and little rituals into a space that can become part of your family's story.</p>
+          </article>
+          <article class="outcome">
+            <span class="num">03 / Tomorrow</span>
+            <h3>Something to look forward to.</h3>
+            <p>Take a meaningful step toward the future you imagine, with clear information to help you decide what feels right.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="quote-band">
+      <div class="wrap reveal">
+        <blockquote>“One day, the place you're looking for becomes the place where your favorite memories begin.”</blockquote>
+        <p>Comelec Village · Masaito Homes</p>
+      </div>
+    </section>
+
+    <section class="section location" id="location">
+      <div class="wrap location-grid">
+        <div class="location-art reveal" role="img" aria-label="A place to put down roots in Cavite"></div>
+        <div class="location-copy reveal">
+          <span class="eyebrow">Rooted in Kawit</span>
+          <h2>A place to put down roots in Cavite.</h2>
+          <p>Comelec Village is located in Barangay San Sebastian, Kawit, Cavite. If you're considering a home here, the best next step is to explore the actual surroundings and see how the location fits your family's everyday needs.</p>
+          <p>Ask our team about nearby schools, healthcare, shopping, transport routes, and the places that matter to your routine. We'll help you review the details so you can make an informed decision.</p>
+          <div class="location-pin"><span>⌖</span> Barangay San Sebastian, Kawit, Cavite</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section amenities" id="amenities">
+      <div class="wrap">
+        <div class="section-head center reveal">
+          <span class="eyebrow">Little joys, close to home</span>
+          <h2>Room for play. Space to unwind. Moments to share.</h2>
+          <p>Some of the best parts of coming home happen just beyond your front door. Picture afternoons by the pool, a friendly game on the court, and children making memories while neighbors become familiar faces.</p>
+        </div>
+        <div class="amenity-grid reveal">
+          <article class="amenity"><span class="amenity-mark">01</span><h3>Clubhouse</h3><p>A welcoming place for gatherings, celebrations, and community moments worth remembering.</p></article>
+          <article class="amenity"><span class="amenity-mark">02</span><h3>Swimming Pool</h3><p>A refreshing change of pace for sunny afternoons and little weekend escapes close to home.</p></article>
+          <article class="amenity"><span class="amenity-mark">03</span><h3>Basketball Court</h3><p>Make time for friendly games, movement, and the simple joy of playing together.</p></article>
+          <article class="amenity"><span class="amenity-mark">04</span><h3>Children's Playground</h3><p>A space for little adventures, laughter, and the kind of play that makes childhood memorable.</p></article>
+          <article class="amenity"><span class="amenity-mark">05</span><h3>Landscaped &amp; Pet Parks</h3><p>Green pockets for a slower stroll, a breath of fresh air, and time outdoors with your furry companions.</p></article>
+          <article class="amenity"><span class="amenity-mark">06</span><h3>Gated 24/7 Security</h3><p>A managed, gated community with round-the-clock security presence, subject to confirmation of current site arrangements.</p></article>
+        </div>
+        <p class="amenity-note reveal">Amenities and operating arrangements should be confirmed with the project representative. Please verify which facilities are completed, accessible, and available for resident use before publishing or making a purchase decision.</p>
+      </div>
+    </section>
+
+    <section class="section models" id="homes">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="eyebrow">Find a home that fits</span>
+          <h2>Different spaces for different chapters.</h2>
+          <p>Maybe you're starting out together. Maybe your family is growing. Or maybe you're ready for a little more room for the life you've been building. Explore the home options reported for Comelec Village and ask us for the latest official details.</p>
+        </div>
+        <div class="model-grid reveal">
+          <article class="unit-card">
+            <div class="unit-photo" style="background-image: url('https://drive.google.com/thumbnail?id=11MEdPlnwqXYlFwUwD_h-XqYzh5adIUVp&sz=w1200');" role="img" aria-label="Chesca Basic"></div>
+            <div class="unit-top"><span class="unit-type">Townhouse · With carport</span><h3>Chesca Basic</h3></div>
+            <div class="unit-body">
+              <div class="unit-price">₱2.63M–₱2.73M <small>Indicative price range</small></div>
+              <div class="unit-specs">
+                <div class="unit-spec"><strong>2</strong><span>Bedrooms</span></div>
+                <div class="unit-spec"><strong>1</strong><span>Toilet &amp; bath</span></div>
+                <div class="unit-spec"><strong>~36–40 sqm</strong><span>Floor area</span></div>
+                <div class="unit-spec"><strong>~40–44 sqm</strong><span>Lot area</span></div>
+              </div>
+              <p>A practical starting point for couples or a growing household who want a home base of their own, with parking space for everyday convenience.</p>
+              <div class="unit-foot">House details to explore</div>
+            </div>
+          </article>
+
+          <article class="unit-card">
+            <div class="unit-photo" style="background-image: url('https://drive.google.com/thumbnail?id=11MEdPlnwqXYlFwUwD_h-XqYzh5adIUVp&sz=w1200');" role="img" aria-label="Chesca Expanded"></div>
+            <div class="unit-top"><span class="unit-type">2-storey townhouse</span><h3>Chesca Expanded</h3></div>
+            <div class="unit-body">
+              <div class="unit-price">Around ₱3.5M <small>Indicative listing price</small></div>
+              <div class="unit-specs">
+                <div class="unit-spec"><strong>2</strong><span>Bedrooms</span></div>
+                <div class="unit-spec"><strong>1</strong><span>Bathroom</span></div>
+                <div class="unit-spec"><strong>~44–45 sqm</strong><span>Floor area</span></div>
+                <div class="unit-spec"><strong>~40 sqm</strong><span>Lot area</span></div>
+              </div>
+              <p>A two-storey layout for those who like a little separation between the rhythm of the day and the quiet of home. Carport and balcony details vary by listing.</p>
+              <div class="unit-foot">House details to explore</div>
+            </div>
+          </article>
+
+          <article class="unit-card">
+            <div class="unit-photo" style="background-image: url('https://drive.google.com/thumbnail?id=1STOAUZUup2cLRriLFi4Rt0WnhhN_Az6t&sz=w1200');" role="img" aria-label="Audrey Basic"></div>
+            <div class="unit-top"><span class="unit-type">Townhouse · With carpark</span><h3>Audrey Basic</h3></div>
+            <div class="unit-body">
+              <div class="unit-price">Around ₱3.4M <small>Indicative listing price</small></div>
+              <div class="unit-specs">
+                <div class="unit-spec"><strong>2</strong><span>Bedrooms</span></div>
+                <div class="unit-spec"><strong>1</strong><span>Toilet &amp; bath</span></div>
+                <div class="unit-spec"><strong>~44 sqm</strong><span>Floor area</span></div>
+                <div class="unit-spec"><strong>To confirm</strong><span>Lot area</span></div>
+              </div>
+              <p>A home option to explore if you want the essentials thoughtfully brought together, with a carpark for your daily comings and goings.</p>
+              <div class="unit-foot">House details to explore</div>
+            </div>
+          </article>
+
+          <article class="unit-card">
+            <div class="unit-photo" style="background-image: url('https://drive.google.com/thumbnail?id=1STOAUZUup2cLRriLFi4Rt0WnhhN_Az6t&sz=w1200');" role="img" aria-label="Audrey Expanded"></div>
+            <div class="unit-top"><span class="unit-type">Expanded townhouse · With carport</span><h3>Audrey Expanded</h3></div>
+            <div class="unit-body">
+              <div class="unit-price">Request updated quotation <small>Indicative price not established</small></div>
+              <div class="unit-specs">
+                <div class="unit-spec"><strong>2–3</strong><span>Bedrooms*</span></div>
+                <div class="unit-spec"><strong>1–2</strong><span>Toilet &amp; bath*</span></div>
+                <div class="unit-spec"><strong>~63 sqm</strong><span>Floor area</span></div>
+                <div class="unit-spec"><strong>~67.5 sqm</strong><span>Lot area</span></div>
+              </div>
+              <p>More room to shape around your family's routines. Online listings differ on bedroom and bathroom counts, so request the official floor plan.</p>
+              <div class="unit-foot">House details to explore</div>
+            </div>
+          </article>
+
+          <article class="unit-card">
+            <div class="unit-photo" style="background-image: url('https://drive.google.com/thumbnail?id=1B01x43t8Jpa8m-C3Eiz-4vdSJQfivhMU&sz=w1200');" role="img" aria-label="Dana Basic"></div>
+            <div class="unit-top"><span class="unit-type">Basic model · With balcony</span><h3>Dana Basic</h3></div>
+            <div class="unit-body">
+              <div class="unit-price">Around ₱5.2M <small>Indicative listing price</small></div>
+              <div class="unit-specs">
+                <div class="unit-spec"><strong>3</strong><span>Bedrooms</span></div>
+                <div class="unit-spec"><strong>2</strong><span>Bathrooms</span></div>
+                <div class="unit-spec"><strong>~72 sqm</strong><span>Floor area</span></div>
+                <div class="unit-spec"><strong>To confirm</strong><span>Lot area</span></div>
+              </div>
+              <p>A larger home option with room for family life to unfold, plus a balcony for a little pause at the start or end of the day.</p>
+              <div class="unit-foot">House details to explore</div>
+            </div>
+          </article>
+
+          <article class="unit-card">
+            <div class="unit-photo" style="background-image: url('https://drive.google.com/thumbnail?id=1PCvNOiowC0INWHx0wWzM5AXpcwberWUi&sz=w1200');" role="img" aria-label="Era"></div>
+            <div class="unit-top"><span class="unit-type">Single-attached · With balcony</span><h3>Era</h3></div>
+            <div class="unit-body">
+              <div class="unit-price">Around ₱6.5M <small>Indicative listing price</small></div>
+              <div class="unit-specs">
+                <div class="unit-spec"><strong>4</strong><span>Bedrooms</span></div>
+                <div class="unit-spec"><strong>2</strong><span>Bathrooms</span></div>
+                <div class="unit-spec"><strong>~86 sqm</strong><span>Floor area</span></div>
+                <div class="unit-spec"><strong>To confirm</strong><span>Lot area</span></div>
+              </div>
+              <p>A single-attached option with additional room for a larger household, guests, work-from-home needs, or the next season of family life.</p>
+              <div class="unit-foot">House details to explore</div>
+            </div>
+          </article>
+        </div>
+        <div class="model-note reveal"><strong>Important details to confirm:</strong> Prices and specifications above are indicative figures compiled from the listings supplied for this draft; they are not official quotations or guarantees of availability. Floor area, lot area, room counts, balcony/carport inclusions, reservation fees, and payment terms may differ between listings and actual units. In particular, Audrey Expanded listings show differing bedroom and bathroom counts. Ask the authorized sales team for the latest approved price list, inventory, floor plans, and written computation.</div>
+      </div>
+    </section>
+
+    <section class="section steps">
+      <div class="wrap">
+        <div class="section-head center reveal">
+          <span class="eyebrow">A clear next step</span>
+          <h2>Getting information can be simple.</h2>
+          <p>No pressure to decide on the spot. Start with a conversation and take things one step at a time.</p>
+        </div>
+        <div class="step-list reveal">
+          <article class="step"><span>01</span><h3>Tell us what matters.</h3><p>Share your preferred home type, budget range, and any questions you have.</p></article>
+          <article class="step"><span>02</span><h3>Review your options.</h3><p>Request updated specifications, sample computations, requirements, and availability.</p></article>
+          <article class="step"><span>03</span><h3>See the place for yourself.</h3><p>Arrange a site visit so you can experience the location and ask questions in person.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head center reveal">
+          <span class="eyebrow">A few things you may be wondering</span>
+          <h2>Good decisions begin with good information.</h2>
+        </div>
+        <div class="faq-list reveal">
+          <details><summary>Where is Comelec Village located?</summary><p>Comelec Village is in Barangay San Sebastian, Kawit, Cavite. You can request the exact site location and directions from the sales team.</p></details>
+          <details><summary>What house models are available?</summary><p>Availability can change. Send an inquiry and ask for the latest official list of models, floor plans, lot areas, floor areas, and inclusions.</p></details>
+          <details><summary>How much does a home cost?</summary><p>Prices and payment terms may change depending on the model and available unit. Request an updated price quotation and sample computation before making a decision.</p></details>
+          <details><summary>Can I ask about financing?</summary><p>Yes. You can ask the sales team which financing options are currently available, what the qualifications are, and what documents may be required. Confirm all terms directly with the relevant financing institution and seller.</p></details>
+          <details><summary>Can I schedule a site visit?</summary><p>Absolutely. Leave your contact details in the inquiry form and mention that you'd like to arrange a visit. The team can coordinate the next steps with you.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section contact" id="inquire">
+      <div class="wrap contact-grid">
+        <div class="contact-copy reveal">
+          <span class="eyebrow">Your next chapter starts with a hello</span>
+          <h2>Let's find out if this could feel like home.</h2>
+          <p>Tell us a little about what you're looking for. Whether you're just starting to explore or already planning a visit, we're here to help you get the information you need.</p>
+          <p>Share your details and the team can get back to you about available homes, updated computations, and how to arrange a visit.</p>
+          <div class="contact-promise">A friendly conversation. Clear information. No need to rush your decision.</div>
+        </div>
+
+        <div class="form-card reveal">
+          <h3>Let's start a conversation.</h3>
+          <p>Fill in the details below and our team can reach out to you.</p>
+          <form id="leadForm">
+            <div class="field">
+              <label for="name">Full name *</label>
+              <input id="name" name="name" type="text" placeholder="Your name" autocomplete="name" required maxlength="100">
+            </div>
+            <div class="field-grid">
+              <div class="field">
+                <label for="phone">Mobile number *</label>
+                <input id="phone" name="phone" type="tel" placeholder="09XX XXX XXXX" autocomplete="tel" required maxlength="20">
+              </div>
+              <div class="field">
+                <label for="email">Email address</label>
+                <input id="email" name="email" type="email" placeholder="you@email.com" autocomplete="email" maxlength="120">
+              </div>
+            </div>
+            <div class="field-grid">
+              <div class="field">
+                <label for="interest">What are you interested in?</label>
+                <select id="interest" name="interest">
+                  <option value="">Select one</option>
+                  <option>Chesca Basic</option>
+                  <option>Chesca Expanded</option>
+                  <option>Audrey Basic</option>
+                  <option>Audrey Expanded</option>
+                  <option>Dana Basic</option>
+                  <option>Era</option>
+                  <option>Felicity</option>
+                  <option>Other available models</option>
+                  <option>I'm still exploring</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="budget">Preferred budget range</label>
+                <select id="budget" name="budget">
+                  <option value="">Select one</option>
+                  <option>I'd like to discuss my options</option>
+                  <option>Below ₱2 million</option>
+                  <option>₱2 million – ₱3 million</option>
+                  <option>₱3 million – ₱4 million</option>
+                  <option>₱4 million and above</option>
+                </select>
+              </div>
+            </div>
+            <div class="field">
+              <label for="message">Anything you'd like us to know?</label>
+              <textarea id="message" name="message" placeholder="For example: I'd like to know the requirements or schedule a site visit." maxlength="1000"></textarea>
+            </div>
+            <label class="consent"><input type="checkbox" id="consent" required><span>I agree that the sales team may use the contact information I provide to respond to this inquiry. I understand that I can ask about the handling of my information.</span></label>
+            <button class="btn" id="submitBtn" type="submit">Send my inquiry <span>↗</span></button>
+            <div id="formStatus" class="form-status" role="status" aria-live="polite"></div>
+            <div class="fine-print">Your details will be used to respond to your inquiry.</div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="footer-row">
+        <div><strong>Comelec Village</strong><div>Masaito Homes · Kawit, Cavite</div></div>
+        <div>Barangay San Sebastian, Kawit, Cavite</div>
+      </div>
+      <p class="disclaimer">This page is an inquiry and marketing page. All photos are illustrative and may not depict the actual project or units. House models, specifications, availability, pricing, financing, amenities, and other project details shown are indicative and subject to confirmation by the authorized sales representative. No specific feature, travel time, or financing approval is guaranteed by this page.</p>
+      <p class="disclaimer">Please ensure that your privacy notice, data retention process, and contact details are finalized by the project owner before publishing this page.</p>
+    </div>
+  </footer>
+
+  <script>
+    const APPS_SCRIPT_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxBG2m51ec-7lVVTObEW83Tcj6uGMl-Xax1JOmLQ-0_7dIeNL95bp4xEwnM763XX8aPnA/exec';
+
+    // Preloader controller
+    (function () {
+      const preloader = document.getElementById('preloader');
+      const skipBtn = document.getElementById('skipPreloaderBtn');
+      let finished = false;
+
+      function dismissPreloader() {
+        if (finished || !preloader) return;
+        finished = true;
+        preloader.classList.add('is-done');
+        setTimeout(() => {
+          if (preloader && preloader.parentNode) {
+            preloader.remove();
+          }
+        }, 600);
+      }
+
+      if (skipBtn) {
+        skipBtn.addEventListener('click', dismissPreloader);
+      }
+      window.addEventListener('load', () => {
+        setTimeout(dismissPreloader, 500);
+      });
+      setTimeout(dismissPreloader, 1500);
+    })();
+
+    const form = document.getElementById('leadForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const statusBox = document.getElementById('formStatus');
+
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      statusBox.className = 'form-status';
+      statusBox.textContent = '';
+
+      if (!document.getElementById('consent').checked) {
+        showStatus('Please confirm the consent checkbox before submitting.', 'error');
+        return;
+      }
+
+      if (!APPS_SCRIPT_WEB_APP_URL || APPS_SCRIPT_WEB_APP_URL.includes('PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE')) {
+        showStatus('Please set your Google Apps Script Web App URL in APPS_SCRIPT_WEB_APP_URL before submitting.', 'error');
+        return;
+      }
+
+      const payload = {
+        name: document.getElementById('name').value.trim(),
+        phone: document.getElementById('phone').value.trim(),
+        email: document.getElementById('email').value.trim(),
+        interest: document.getElementById('interest').value,
+        budget: document.getElementById('budget').value,
+        message: document.getElementById('message').value.trim(),
+        consent: document.getElementById('consent').checked
+      };
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending your inquiry…';
+
+      fetch(APPS_SCRIPT_WEB_APP_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload)
+      })
+        .then(function() {
+          showStatus('Thank you! Your inquiry has been received.', 'success');
+          form.reset();
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = 'Send my inquiry <span>↗</span>';
+        })
+        .catch(function(error) {
+          showStatus((error && error.message) ? error.message : 'Something went wrong. Please try again in a moment.', 'error');
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = 'Send my inquiry <span>↗</span>';
+        });
+    });
+
+    function showStatus(message, type) {
+      statusBox.textContent = message;
+      statusBox.className = 'form-status ' + type;
+    }
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    } else {
+      document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>
