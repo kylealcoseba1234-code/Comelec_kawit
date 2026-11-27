@@ -62,10 +62,11 @@
       gap: 16px;
     }
     .loader-logo-wrap {
-      background: rgba(251, 253, 252, 0.94);
-      padding: 14px 20px;
-      border-radius: 14px;
-      box-shadow: 0 18px 40px rgba(0, 0, 0, .28);
+      background: #ffffff;
+      padding: 18px 26px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.95);
+      box-shadow: 0 20px 48px rgba(0, 0, 0, .24);
       animation: loaderPulse 2.1s ease-in-out infinite;
     }
     .loader-logo-wrap img {
@@ -150,18 +151,32 @@
     .brand strong { font-family: var(--serif); font-size: 21px; font-weight: 500; letter-spacing: -.01em; }
     .brand span { margin-top: 4px; font-size: 9px; letter-spacing: .2em; text-transform: uppercase; opacity: .8; }
 
+    /* HERO SLIDESHOW (HIDDEN CONTROLS, AUTOMATIC LOOPING) */
     .hero { min-height: 760px; display: flex; align-items: center; position: relative; color: white; overflow: hidden; background: #153d4a; }
-    .hero:before {
-      content: '';
+    .hero-slides { position: absolute; inset: 0; z-index: 0; }
+    .hero-slide {
       position: absolute;
       inset: 0;
-      background: linear-gradient(90deg, rgba(13,43,55,.82) 0%, rgba(13,43,55,.58) 48%, rgba(13,43,55,.12) 100%),
-      linear-gradient(0deg, rgba(13,43,55,.34), transparent 48%),
-      url('https://drive.google.com/thumbnail?id=1tcsbeIkir9nn44NGw7DMohZZy8yg3g7U&sz=w2200') center/cover;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
       transform: scale(1.01);
+      transition: opacity .85s ease-in-out, transform 4.2s ease-out;
     }
-    .hero:after { content: ''; position: absolute; inset: auto 0 0; height: 100px; background: linear-gradient(transparent, rgba(20,29,23,.18)); }
-    .hero-content { position: relative; z-index: 1; padding: 160px 0 110px; }
+    .hero-slide.is-active {
+      opacity: 1;
+      transform: scale(1.045);
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(90deg, rgba(13,43,55,.82) 0%, rgba(13,43,55,.58) 48%, rgba(13,43,55,.12) 100%),
+                  linear-gradient(0deg, rgba(13,43,55,.34), transparent 48%);
+      pointer-events: none;
+    }
+    .hero:after { content: ''; position: absolute; inset: auto 0 0; height: 100px; background: linear-gradient(transparent, rgba(20,29,23,.18)); z-index: 1; pointer-events: none; }
+    .hero-content { position: relative; z-index: 2; padding: 160px 0 110px; }
     .hero .eyebrow { color: #b8d8cc; }
     .hero .lead { margin-bottom: 30px; }
     .hero-note { margin-top: 45px; display: flex; align-items: center; gap: 14px; color: rgba(240,249,246,.78); font-size: 11px; letter-spacing: .04em; }
@@ -180,7 +195,7 @@
     .photo:after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(16,47,58,.05) 35%, rgba(16,47,58,.68) 100%); }
     .photo-main { background-image: url('https://drive.google.com/thumbnail?id=1NCKtGXB8_6XhY7RPGEWG0m7e6LhljZkv&sz=w1600'); }
     .photo-side { min-height: 510px; background-image: url('https://drive.google.com/thumbnail?id=1jK_suEySCJsgi9wcdbX9Qw00cUCEQe8C&sz=w1600'); }
-    .photo-caption { position: relative; z-index: 1; position: absolute; left: 28px; bottom: 26px; color: white; font-family: var(--serif); font-size: 26px; text-shadow: 0 2px 15px rgba(0,0,0,.45); }
+    .photo-caption { position: absolute; z-index: 1; left: 28px; bottom: 26px; color: white; font-family: var(--serif); font-size: 26px; text-shadow: 0 2px 15px rgba(0,0,0,.45); }
 
     .section { padding: 118px 0; }
     .section-head { max-width: 700px; margin-bottom: 55px; }
@@ -189,11 +204,55 @@
     .section-head p, .location-copy p, .unit-body p, .step p, details p { color: #667b7d; font-size: 15px; line-height: 1.85; }
     .section-head.center p { margin-left: auto; margin-right: auto; }
 
-    .outcomes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: rgba(24,57,70,.12); border: 1px solid rgba(24,57,70,.12); }
-    .outcome { background: #fbfdfc; padding: 37px 32px 34px; min-height: 245px; }
-    .outcome .num, .step span { color: #6d9b83; font-family: var(--serif); font-size: 17px; }
-    .outcome h3 { margin: 21px 0 12px; font-size: 25px; }
-    .outcome p { font-size: 13px; line-height: 1.8; margin-bottom: 0; }
+    /* LIFESTYLE / OUTCOMES WITH ENLARGED SCALE & HOVER IMAGE EFFECTS */
+    #lifestyle { padding: 145px 0; }
+    #lifestyle .wrap { width: min(1300px, calc(100% - 48px)); }
+    #lifestyle .section-head { max-width: 780px; margin-bottom: 64px; }
+    #lifestyle .section-head h2 { font-size: clamp(42px, 5.1vw, 66px); }
+    #lifestyle .section-head p { font-size: 17px; }
+    .outcomes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .outcome {
+      background: #ffffff;
+      border: 1px solid rgba(24,57,70,.13);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 14px 36px rgba(24,57,70,.05);
+      transition: transform .4s cubic-bezier(.22,1,.36,1), box-shadow .4s ease, border-color .4s ease;
+    }
+    .outcome:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 26px 56px rgba(24,57,70,.13);
+      border-color: rgba(40,100,79,.32);
+    }
+    .outcome-media {
+      height: 310px;
+      position: relative;
+      overflow: hidden;
+      background: #dcebe5;
+    }
+    .outcome-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .75s cubic-bezier(.22,1,.36,1), filter .5s ease;
+      filter: brightness(.97);
+    }
+    .outcome:hover .outcome-media img {
+      transform: scale(1.08);
+      filter: brightness(1.04);
+    }
+    .outcome-media:after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 55%, rgba(16,47,58,.32) 100%);
+      pointer-events: none;
+    }
+    .outcome-body { padding: 38px 34px 40px; flex: 1; }
+    .outcome .num, .step span { color: #6d9b83; font-family: var(--serif); font-size: 19px; }
+    .outcome h3 { margin: 16px 0 14px; font-size: 29px; }
+    .outcome p { font-size: 15px; line-height: 1.85; margin-bottom: 0; color: #526c70; }
 
     .quote-band { padding: 104px 0; background: #173f4d; color: #f0f7f4; text-align: center; }
     .quote-band blockquote { max-width: 850px; margin: 0 auto; font-family: var(--serif); font-size: clamp(30px, 4.3vw, 52px); line-height: 1.3; }
@@ -205,13 +264,54 @@
     .location-copy p { line-height: 1.9; font-size: 15px; }
     .location-pin { display: inline-flex; gap: 10px; align-items: center; margin-top: 18px; padding: 15px 18px; border: 1px solid rgba(24,57,70,.18); font-size: 12px; color: #28644f; }
 
+    /* MODELS WITH EXTERIOR + FLOOR PLAN SWITCHER */
     .models { background: var(--paper); }
     .model-note { padding: 20px 24px; background: #edf4f1; color: var(--muted); font-size: 12px; line-height: 1.8; margin-top: 30px; }
     .model-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
     .unit-card { border: 1px solid rgba(24,57,70,.13); background: #fff; display: flex; flex-direction: column; transition: transform .25s ease, box-shadow .25s ease; }
     .unit-card:hover { transform: translateY(-4px); box-shadow: 0 18px 42px rgba(24,57,70,.09); }
-    .unit-photo { height: 215px; background-size: cover; background-position: center; background-color: #dcebe5; }
-    .unit-top { min-height: 128px; padding: 22px 25px 18px; background: linear-gradient(145deg, #dcebe5, #eff6f3); position: relative; overflow: hidden; }
+    .unit-media { position: relative; height: 235px; background: #dcebe5; overflow: hidden; }
+    .unit-photo {
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      transition: transform .45s ease;
+    }
+    .unit-photo.is-plan {
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-color: #f4f8f6;
+      padding: 10px;
+    }
+    .unit-tabs {
+      position: absolute;
+      left: 12px;
+      bottom: 12px;
+      z-index: 2;
+      display: inline-flex;
+      background: rgba(16, 47, 58, .86);
+      backdrop-filter: blur(4px);
+      padding: 3px;
+      border-radius: 2px;
+    }
+    .unit-tab {
+      border: 0;
+      background: transparent;
+      color: #d6e6e1;
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: 6px 10px;
+      cursor: pointer;
+      transition: background .2s ease, color .2s ease;
+    }
+    .unit-tab.is-active {
+      background: #ffffff;
+      color: var(--ink);
+    }
+    .unit-top { min-height: 124px; padding: 22px 25px 18px; background: linear-gradient(145deg, #dcebe5, #eff6f3); position: relative; overflow: hidden; }
     .unit-top:after { content: '⌂'; position: absolute; right: 17px; bottom: -28px; color: rgba(40,100,79,.12); font-family: var(--serif); font-size: 150px; line-height: 1; }
     .unit-type { display: inline-block; position: relative; z-index: 1; color: #28644f; font-size: 9px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
     .unit-top h3 { position: relative; z-index: 1; margin: 12px 0 0; font-size: 27px; }
@@ -225,17 +325,127 @@
     .unit-body p { font-size: 12px; line-height: 1.75; margin-bottom: 0; }
     .unit-foot { margin-top: auto; padding-top: 17px; color: #28644f; font-size: 10px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; }
 
+    /* CREATIVE AMENITIES SHOWCASE (6 PICS SLIDESHOW + CARDS) */
     .amenities, .contact { background: #173f4d; color: var(--cream); position: relative; overflow: hidden; }
-    .amenities:before { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(17,57,65,.96), rgba(17,57,65,.82)), url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1800&q=80') center/cover; opacity: .9; }
+    .amenities:before { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(17,57,65,.96), rgba(17,57,65,.84)), url('https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1800&q=80') center/cover; opacity: .9; }
     .amenities .wrap { position: relative; z-index: 1; }
     .amenities .eyebrow, .contact .eyebrow { color: #b8d8cc; }
     .amenities .section-head p, .amenity p, .amenity-note, .contact-copy p { color: #c1d6d1; }
-    .amenity-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: rgba(220,242,235,.2); border: 1px solid rgba(220,242,235,.2); }
-    .amenity { min-height: 180px; padding: 27px; background: rgba(19,66,70,.86); }
-    .amenity-mark { color: #9bcab7; font-family: var(--serif); font-size: 24px; }
-    .amenity h3 { font-size: 23px; margin: 15px 0 9px; }
-    .amenity p { font-size: 12px; line-height: 1.75; margin: 0; }
-    .amenity-note { margin-top: 20px; font-size: 10px; line-height: 1.7; }
+
+    .amenity-showcase {
+      position: relative;
+      height: 430px;
+      border: 1px solid rgba(220,242,235,.22);
+      overflow: hidden;
+      margin-bottom: 24px;
+      background: #102f3a;
+    }
+    .amenity-slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transform: scale(1.03);
+      transition: opacity .8s ease, transform 4s ease;
+      pointer-events: none;
+    }
+    .amenity-slide.is-active {
+      opacity: 1;
+      transform: scale(1);
+      pointer-events: auto;
+    }
+    .amenity-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .amenity-slide:after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(0deg, rgba(12,35,44,.86) 0%, rgba(12,35,44,.25) 55%, rgba(12,35,44,.15) 100%);
+    }
+    .amenity-slide-caption {
+      position: absolute;
+      left: 34px;
+      right: 34px;
+      bottom: 30px;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 20px;
+    }
+    .amenity-slide-tag {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: #9bcab7;
+      margin-bottom: 8px;
+    }
+    .amenity-slide-caption h3 {
+      margin: 0 0 6px;
+      font-size: clamp(26px, 3vw, 34px);
+      color: #ffffff;
+    }
+    .amenity-slide-caption p {
+      margin: 0;
+      font-size: 14px;
+      color: #d6e7e3;
+      max-width: 620px;
+    }
+    .amenity-dots {
+      display: flex;
+      gap: 8px;
+      z-index: 2;
+    }
+    .amenity-dot {
+      width: 24px;
+      height: 4px;
+      border: 0;
+      background: rgba(255,255,255,.32);
+      cursor: pointer;
+      padding: 0;
+      transition: background .25s ease, width .25s ease;
+    }
+    .amenity-dot.is-active {
+      width: 38px;
+      background: #9bcab7;
+    }
+
+    .amenity-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+    .amenity {
+      background: rgba(19,66,70,.88);
+      border: 1px solid rgba(220,242,235,.2);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform .3s ease, border-color .3s ease;
+    }
+    .amenity:hover {
+      transform: translateY(-4px);
+      border-color: #9bcab7;
+    }
+    .amenity-thumb {
+      height: 175px;
+      overflow: hidden;
+      position: relative;
+    }
+    .amenity-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .55s ease;
+    }
+    .amenity:hover .amenity-thumb img {
+      transform: scale(1.07);
+    }
+    .amenity-body { padding: 24px 25px 27px; }
+    .amenity-mark { color: #9bcab7; font-family: var(--serif); font-size: 21px; }
+    .amenity h3 { font-size: 23px; margin: 10px 0 9px; color: #ffffff; }
+    .amenity p { font-size: 12.5px; line-height: 1.75; margin: 0; }
+    .amenity-note { margin-top: 22px; font-size: 10px; line-height: 1.7; }
 
     .steps { background: #edf4f1; }
     .step-list { display: grid; grid-template-columns: repeat(3,1fr); gap: 35px; }
@@ -281,18 +491,21 @@
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
     @media (max-width: 800px) {
-      .wrap { width: min(100% - 36px, 600px); }
+      .wrap, #lifestyle .wrap { width: min(100% - 36px, 600px); }
       .nav { min-height: 74px; }
       .hero { min-height: 700px; }
-      .hero:before { background-position: 58% center; background-image: linear-gradient(90deg, rgba(13,43,55,.84), rgba(13,43,55,.52)), url('https://drive.google.com/thumbnail?id=1tcsbeIkir9nn44NGw7DMohZZy8yg3g7U&sz=w1400'); }
+      .hero-slide { background-position: 58% center; }
       .hero-content { padding: 140px 0 90px; }
       .intro,.section { padding: 82px 0; }
+      #lifestyle { padding: 96px 0; }
       .intro-grid,.location-grid,.contact-grid { grid-template-columns: 1fr; gap: 30px; }
       .image-story { padding-bottom: 80px; }
       .image-story-grid { grid-template-columns: 1fr; }
       .photo,.photo-side { min-height: 340px; }
       .outcomes,.model-grid,.step-list,.amenity-grid { grid-template-columns: 1fr; }
-      .outcome { min-height: auto; }
+      .outcome-media { height: 240px; }
+      .amenity-showcase { height: 320px; }
+      .amenity-slide-caption { left: 20px; right: 20px; bottom: 20px; flex-direction: column; align-items: flex-start; }
       .location-art { min-height: 330px; order: 2; }
       .contact-grid { gap: 38px; }
       .form-card { padding: 25px 20px; }
@@ -302,7 +515,7 @@
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       .reveal { opacity: 1; transform: none; transition: none; }
-      .loader-logo-wrap, .loader-bar { animation: none; }
+      .loader-logo-wrap, .loader-bar, .hero-slide, .amenity-slide { animation: none; transition: none; }
     }
   </style>
 </head>
@@ -313,7 +526,7 @@
     <div class="loader-card">
       <div class="loader-logo-wrap">
         <img
-          src="https://drive.google.com/thumbnail?id=1yAe1HUcVqnhUbZXDwKDqKgzroIjLHE3U&sz=w600"
+          src="https://drive.google.com/thumbnail?id=1ZWd5MkLqV3duZqApkba-8mTIgFi5V-g1&sz=w600"
           alt="Comelec Village Logo"
         >
       </div>
@@ -336,6 +549,12 @@
 
   <main id="top">
     <section class="hero">
+      <div class="hero-slides" id="heroSlides" aria-hidden="true">
+        <div class="hero-slide is-active" style="background-image: url('https://drive.google.com/thumbnail?id=1MiZSPPZ_bBmLym8ByqB4IUF5CJHkEwiE&sz=w2200');"></div>
+        <div class="hero-slide" style="background-image: url('https://drive.google.com/thumbnail?id=1AVgvwgrlXUpzx-PJQhMY6LVfkjfmk8B3&sz=w2200');"></div>
+        <div class="hero-slide" style="background-image: url('https://drive.google.com/thumbnail?id=17NxjJjy7wzhUa6Rghl1DSwkmTHcdR00y&sz=w2200');"></div>
+      </div>
+      <div class="hero-overlay"></div>
       <div class="wrap hero-content">
         <span class="eyebrow">Comelec Village · Masaito Homes</span>
         <h1>The best days are made of little things.</h1>
@@ -381,19 +600,34 @@
         </div>
         <div class="outcomes reveal">
           <article class="outcome">
-            <span class="num">01 / Together</span>
-            <h3>More moments under one roof.</h3>
-            <p>From shared meals to quiet conversations at the end of the day, make space for the people who make life feel full.</p>
+            <div class="outcome-media">
+              <img src="https://drive.google.com/thumbnail?id=1BiudYWd6UltnjNWwJGa18RFCSKaOP7Wp&sz=w1200" alt="More moments under one roof">
+            </div>
+            <div class="outcome-body">
+              <span class="num">01 / Together</span>
+              <h3>More moments under one roof.</h3>
+              <p>From shared meals to quiet conversations at the end of the day, make space for the people who make life feel full.</p>
+            </div>
           </article>
           <article class="outcome">
-            <span class="num">02 / Belonging</span>
-            <h3>A place you can make your own.</h3>
-            <p>Bring your own traditions, personal touches, and little rituals into a space that can become part of your family's story.</p>
+            <div class="outcome-media">
+              <img src="https://drive.google.com/thumbnail?id=1k2DpGlVOrANDcg7idg0F2dXshsrXGgEN&sz=w1200" alt="A place you can make your own">
+            </div>
+            <div class="outcome-body">
+              <span class="num">02 / Belonging</span>
+              <h3>A place you can make your own.</h3>
+              <p>Bring your own traditions, personal touches, and little rituals into a space that can become part of your family's story.</p>
+            </div>
           </article>
           <article class="outcome">
-            <span class="num">03 / Tomorrow</span>
-            <h3>Something to look forward to.</h3>
-            <p>Take a meaningful step toward the future you imagine, with clear information to help you decide what feels right.</p>
+            <div class="outcome-media">
+              <img src="https://drive.google.com/thumbnail?id=11towcFEcdo-DFhU9WJgc2INEGPVZbmTp&sz=w1200" alt="Something to look forward to">
+            </div>
+            <div class="outcome-body">
+              <span class="num">03 / Tomorrow</span>
+              <h3>Something to look forward to.</h3>
+              <p>Take a meaningful step toward the future you imagine, with clear information to help you decide what feels right.</p>
+            </div>
           </article>
         </div>
       </div>
@@ -424,15 +658,147 @@
         <div class="section-head center reveal">
           <span class="eyebrow">Little joys, close to home</span>
           <h2>Room for play. Space to unwind. Moments to share.</h2>
-          <p>Some of the best parts of coming home happen just beyond your front door. Picture afternoons by the pool, a friendly game on the court, and children making memories while neighbors become familiar faces.</p>
+          <p>Some of the best parts of coming home happen just beyond your front door. Picture active afternoons on the court, children making memories at the playground, and peaceful walks through landscaped green pockets.</p>
         </div>
+
+        <!-- CREATIVE AMENITIES PHOTO SLIDESHOW (ALL 6 AMENITIES) -->
+        <div class="amenity-showcase reveal" id="amenityShowcase">
+          <div class="amenity-slide is-active">
+            <img src="https://drive.google.com/thumbnail?id=1BIb3uKTGIc4vtjRKez-at78l4O8lrUrW&sz=w1600" alt="Basketball Court">
+            <div class="amenity-slide-caption">
+              <div>
+                <span class="amenity-slide-tag">01 · Active Living</span>
+                <h3>Basketball Court</h3>
+                <p>Make time for friendly games, movement, and the simple joy of playing together.</p>
+              </div>
+            </div>
+          </div>
+          <div class="amenity-slide">
+            <img src="https://drive.google.com/thumbnail?id=17zg4o4OWSEiPG8SmmeigvdlwvHTlyOrB&sz=w1600" alt="Children's Playground">
+            <div class="amenity-slide-caption">
+              <div>
+                <span class="amenity-slide-tag">02 · Family &amp; Play</span>
+                <h3>Children's Playground</h3>
+                <p>A space for little adventures, laughter, and the kind of play that makes childhood memorable.</p>
+              </div>
+            </div>
+          </div>
+          <div class="amenity-slide">
+            <img src="https://drive.google.com/thumbnail?id=1snjp_ioz5neZar9hVUscP7JbOMtptuZ2&sz=w1600" alt="Landscaped & Pet Parks">
+            <div class="amenity-slide-caption">
+              <div>
+                <span class="amenity-slide-tag">03 · Outdoors &amp; Nature</span>
+                <h3>Landscaped &amp; Pet Parks</h3>
+                <p>Green pockets for a slower stroll, a breath of fresh air, and time outdoors with your furry companions.</p>
+              </div>
+            </div>
+          </div>
+          <div class="amenity-slide">
+            <img src="https://drive.google.com/thumbnail?id=1Ag4kJPqbdN8b3jEWvDHvMF4z-xa8l6__&sz=w1600" alt="Gated 24/7 Security">
+            <div class="amenity-slide-caption">
+              <div>
+                <span class="amenity-slide-tag">04 · Peace of Mind</span>
+                <h3>Gated 24/7 Security</h3>
+                <p>A managed, gated community with round-the-clock security presence, subject to confirmation of current site arrangements.</p>
+              </div>
+            </div>
+          </div>
+          <div class="amenity-slide">
+            <img src="https://drive.google.com/thumbnail?id=1L7SRvPHz3OP23La5qrG5mDQytKjXpG-W&sz=w1600" alt="Jogging & Walking Paths">
+            <div class="amenity-slide-caption">
+              <div>
+                <span class="amenity-slide-tag">05 · Wellness &amp; Movement</span>
+                <h3>Jogging &amp; Walking Paths</h3>
+                <p>Tree-lined village streets designed for morning walks, light jogs, and peaceful evening strolls close to home.</p>
+              </div>
+            </div>
+          </div>
+          <div class="amenity-slide">
+            <img src="https://drive.google.com/thumbnail?id=1gUmHmrDVrJpYwjruX4OPM6ILKNVdI7nw&sz=w1600" alt="Multi-Purpose Open Pavilion">
+            <div class="amenity-slide-caption">
+              <div>
+                <span class="amenity-slide-tag">06 · Community &amp; Gatherings</span>
+                <h3>Multi-Purpose Open Pavilion</h3>
+                <p>An open community space where neighbors can gather for weekend events, family milestones, and village activities.</p>
+              </div>
+            </div>
+          </div>
+          <div class="amenity-dots" id="amenityDots" style="position:absolute; right:34px; bottom:34px;">
+            <button type="button" class="amenity-dot is-active" aria-label="Slide 1"></button>
+            <button type="button" class="amenity-dot" aria-label="Slide 2"></button>
+            <button type="button" class="amenity-dot" aria-label="Slide 3"></button>
+            <button type="button" class="amenity-dot" aria-label="Slide 4"></button>
+            <button type="button" class="amenity-dot" aria-label="Slide 5"></button>
+            <button type="button" class="amenity-dot" aria-label="Slide 6"></button>
+          </div>
+        </div>
+
         <div class="amenity-grid reveal">
-          <article class="amenity"><span class="amenity-mark">01</span><h3>Clubhouse</h3><p>A welcoming place for gatherings, celebrations, and community moments worth remembering.</p></article>
-          <article class="amenity"><span class="amenity-mark">02</span><h3>Swimming Pool</h3><p>A refreshing change of pace for sunny afternoons and little weekend escapes close to home.</p></article>
-          <article class="amenity"><span class="amenity-mark">03</span><h3>Basketball Court</h3><p>Make time for friendly games, movement, and the simple joy of playing together.</p></article>
-          <article class="amenity"><span class="amenity-mark">04</span><h3>Children's Playground</h3><p>A space for little adventures, laughter, and the kind of play that makes childhood memorable.</p></article>
-          <article class="amenity"><span class="amenity-mark">05</span><h3>Landscaped &amp; Pet Parks</h3><p>Green pockets for a slower stroll, a breath of fresh air, and time outdoors with your furry companions.</p></article>
-          <article class="amenity"><span class="amenity-mark">06</span><h3>Gated 24/7 Security</h3><p>A managed, gated community with round-the-clock security presence, subject to confirmation of current site arrangements.</p></article>
+          <article class="amenity">
+            <div class="amenity-thumb">
+              <img src="https://drive.google.com/thumbnail?id=1BIb3uKTGIc4vtjRKez-at78l4O8lrUrW&sz=w900" alt="Basketball Court">
+            </div>
+            <div class="amenity-body">
+              <span class="amenity-mark">01</span>
+              <h3>Basketball Court</h3>
+              <p>Make time for friendly games, movement, and the simple joy of playing together.</p>
+            </div>
+          </article>
+
+          <article class="amenity">
+            <div class="amenity-thumb">
+              <img src="https://drive.google.com/thumbnail?id=17zg4o4OWSEiPG8SmmeigvdlwvHTlyOrB&sz=w900" alt="Children's Playground">
+            </div>
+            <div class="amenity-body">
+              <span class="amenity-mark">02</span>
+              <h3>Children's Playground</h3>
+              <p>A space for little adventures, laughter, and the kind of play that makes childhood memorable.</p>
+            </div>
+          </article>
+
+          <article class="amenity">
+            <div class="amenity-thumb">
+              <img src="https://drive.google.com/thumbnail?id=1snjp_ioz5neZar9hVUscP7JbOMtptuZ2&sz=w900" alt="Landscaped & Pet Parks">
+            </div>
+            <div class="amenity-body">
+              <span class="amenity-mark">03</span>
+              <h3>Landscaped &amp; Pet Parks</h3>
+              <p>Green pockets for a slower stroll, a breath of fresh air, and time outdoors with your furry companions.</p>
+            </div>
+          </article>
+
+          <article class="amenity">
+            <div class="amenity-thumb">
+              <img src="https://drive.google.com/thumbnail?id=1Ag4kJPqbdN8b3jEWvDHvMF4z-xa8l6__&sz=w900" alt="Gated 24/7 Security">
+            </div>
+            <div class="amenity-body">
+              <span class="amenity-mark">04</span>
+              <h3>Gated 24/7 Security</h3>
+              <p>A managed, gated community with round-the-clock security presence, subject to confirmation of current site arrangements.</p>
+            </div>
+          </article>
+
+          <article class="amenity">
+            <div class="amenity-thumb">
+              <img src="https://drive.google.com/thumbnail?id=1L7SRvPHz3OP23La5qrG5mDQytKjXpG-W&sz=w900" alt="Jogging & Walking Paths">
+            </div>
+            <div class="amenity-body">
+              <span class="amenity-mark">05</span>
+              <h3>Jogging &amp; Walking Paths</h3>
+              <p>Tree-lined village streets designed for morning walks, light jogs, and peaceful evening strolls close to home.</p>
+            </div>
+          </article>
+
+          <article class="amenity">
+            <div class="amenity-thumb">
+              <img src="https://drive.google.com/thumbnail?id=1gUmHmrDVrJpYwjruX4OPM6ILKNVdI7nw&sz=w900" alt="Multi-Purpose Open Pavilion">
+            </div>
+            <div class="amenity-body">
+              <span class="amenity-mark">06</span>
+              <h3>Multi-Purpose Open Pavilion</h3>
+              <p>An open community space where neighbors can gather for weekend events, family milestones, and village activities.</p>
+            </div>
+          </article>
         </div>
         <p class="amenity-note reveal">Amenities and operating arrangements should be confirmed with the project representative. Please verify which facilities are completed, accessible, and available for resident use before publishing or making a purchase decision.</p>
       </div>
@@ -443,11 +809,22 @@
         <div class="section-head reveal">
           <span class="eyebrow">Find a home that fits</span>
           <h2>Different spaces for different chapters.</h2>
-          <p>Maybe you're starting out together. Maybe your family is growing. Or maybe you're ready for a little more room for the life you've been building. Explore the home options reported for Comelec Village and ask us for the latest official details.</p>
+          <p>Maybe you're starting out together. Maybe your family is growing. Or maybe you're ready for a little more room for the life you've been building. Explore the home options and floor plans reported for Comelec Village.</p>
         </div>
         <div class="model-grid reveal">
+          <!-- CHESCA BASIC -->
           <article class="unit-card">
-            <div class="unit-photo" style="background-image: url('https://drive.google.com/thumbnail?id=11MEdPlnwqXYlFwUwD_h-XqYzh5adIUVp&sz=w1200');" role="img" aria-label="Chesca Basic"></div>
+            <div class="unit-media">
+              <div class="unit-photo"
+                   data-exterior="https://drive.google.com/thumbnail?id=11MEdPlnwqXYlFwUwD_h-XqYzh5adIUVp&sz=w1200"
+                   data-plan="https://drive.google.com/thumbnail?id=1S8rUb5QuvTkU3EBFu_YXpdoyp8O5XfSH&sz=w1200"
+                   style="background-image: url('https://drive.google.com/thumbnail?id=11MEdPlnwqXYlFwUwD_h-XqYzh5adIUVp&sz=w1200');"
+                   role="img" aria-label="Chesca Basic"></div>
+              <div class="unit-tabs">
+                <button type="button" class="unit-tab is-active" data-view="exterior">Exterior</button>
+                <button type="button" class="unit-tab" data-view="plan">Floor Plan</button>
+              </div>
+            </div>
             <div class="unit-top"><span class="unit-type">Townhouse · With carport</span><h3>Chesca Basic</h3></div>
             <div class="unit-body">
               <div class="unit-price">₱2.63M–₱2.73M <small>Indicative price range</small></div>
@@ -458,12 +835,23 @@
                 <div class="unit-spec"><strong>~40–44 sqm</strong><span>Lot area</span></div>
               </div>
               <p>A practical starting point for couples or a growing household who want a home base of their own, with parking space for everyday convenience.</p>
-              <div class="unit-foot">House details to explore</div>
+              <div class="unit-foot">Switch tabs above to view floor plan</div>
             </div>
           </article>
 
+          <!-- CHESCA EXPANDED -->
           <article class="unit-card">
-            <div class="unit-photo" style="background-image: url('https://drive.google.com/thumbnail?id=11MEdPlnwqXYlFwUwD_h-XqYzh5adIUVp&sz=w1200');" role="img" aria-label="Chesca Expanded"></div>
+            <div class="unit-media">
+              <div class="unit-photo"
+                   data-exterior="https://drive.google.com/thumbnail?id=11MEdPlnwqXYlFwUwD_h-XqYzh5adIUVp&sz=w1200"
+                   data-plan="https://drive.google.com/thumbnail?id=1Yp8Ec2qmdYbLcXJGfMkZINtKxP1mdAlm&sz=w1200"
+                   style="background-image: url('https://drive.google.com/thumbnail?id=11MEdPlnwqXYlFwUwD_h-XqYzh5adIUVp&sz=w1200');"
+                   role="img" aria-label="Chesca Expanded"></div>
+              <div class="unit-tabs">
+                <button type="button" class="unit-tab is-active" data-view="exterior">Exterior</button>
+                <button type="button" class="unit-tab" data-view="plan">Floor Plan</button>
+              </div>
+            </div>
             <div class="unit-top"><span class="unit-type">2-storey townhouse</span><h3>Chesca Expanded</h3></div>
             <div class="unit-body">
               <div class="unit-price">Around ₱3.5M <small>Indicative listing price</small></div>
@@ -474,12 +862,23 @@
                 <div class="unit-spec"><strong>~40 sqm</strong><span>Lot area</span></div>
               </div>
               <p>A two-storey layout for those who like a little separation between the rhythm of the day and the quiet of home. Carport and balcony details vary by listing.</p>
-              <div class="unit-foot">House details to explore</div>
+              <div class="unit-foot">Switch tabs above to view floor plan</div>
             </div>
           </article>
 
+          <!-- AUDREY BASIC -->
           <article class="unit-card">
-            <div class="unit-photo" style="background-image: url('https://drive.google.com/thumbnail?id=1STOAUZUup2cLRriLFi4Rt0WnhhN_Az6t&sz=w1200');" role="img" aria-label="Audrey Basic"></div>
+            <div class="unit-media">
+              <div class="unit-photo"
+                   data-exterior="https://drive.google.com/thumbnail?id=1STOAUZUup2cLRriLFi4Rt0WnhhN_Az6t&sz=w1200"
+                   data-plan="https://drive.google.com/thumbnail?id=1eQcRv7CtXhuX91s7BJCeTHPbezxtxNzj&sz=w1200"
+                   style="background-image: url('https://drive.google.com/thumbnail?id=1STOAUZUup2cLRriLFi4Rt0WnhhN_Az6t&sz=w1200');"
+                   role="img" aria-label="Audrey Basic"></div>
+              <div class="unit-tabs">
+                <button type="button" class="unit-tab is-active" data-view="exterior">Exterior</button>
+                <button type="button" class="unit-tab" data-view="plan">Floor Plan</button>
+              </div>
+            </div>
             <div class="unit-top"><span class="unit-type">Townhouse · With carpark</span><h3>Audrey Basic</h3></div>
             <div class="unit-body">
               <div class="unit-price">Around ₱3.4M <small>Indicative listing price</small></div>
@@ -490,12 +889,23 @@
                 <div class="unit-spec"><strong>To confirm</strong><span>Lot area</span></div>
               </div>
               <p>A home option to explore if you want the essentials thoughtfully brought together, with a carpark for your daily comings and goings.</p>
-              <div class="unit-foot">House details to explore</div>
+              <div class="unit-foot">Switch tabs above to view floor plan</div>
             </div>
           </article>
 
+          <!-- AUDREY EXPANDED -->
           <article class="unit-card">
-            <div class="unit-photo" style="background-image: url('https://drive.google.com/thumbnail?id=1STOAUZUup2cLRriLFi4Rt0WnhhN_Az6t&sz=w1200');" role="img" aria-label="Audrey Expanded"></div>
+            <div class="unit-media">
+              <div class="unit-photo"
+                   data-exterior="https://drive.google.com/thumbnail?id=1STOAUZUup2cLRriLFi4Rt0WnhhN_Az6t&sz=w1200"
+                   data-plan="https://drive.google.com/thumbnail?id=1M8nYBAGCG2SwvgL2HWRvh2rDAh8no5Z9&sz=w1200"
+                   style="background-image: url('https://drive.google.com/thumbnail?id=1STOAUZUup2cLRriLFi4Rt0WnhhN_Az6t&sz=w1200');"
+                   role="img" aria-label="Audrey Expanded"></div>
+              <div class="unit-tabs">
+                <button type="button" class="unit-tab is-active" data-view="exterior">Exterior</button>
+                <button type="button" class="unit-tab" data-view="plan">Floor Plan</button>
+              </div>
+            </div>
             <div class="unit-top"><span class="unit-type">Expanded townhouse · With carport</span><h3>Audrey Expanded</h3></div>
             <div class="unit-body">
               <div class="unit-price">Request updated quotation <small>Indicative price not established</small></div>
@@ -506,12 +916,23 @@
                 <div class="unit-spec"><strong>~67.5 sqm</strong><span>Lot area</span></div>
               </div>
               <p>More room to shape around your family's routines. Online listings differ on bedroom and bathroom counts, so request the official floor plan.</p>
-              <div class="unit-foot">House details to explore</div>
+              <div class="unit-foot">Switch tabs above to view floor plan</div>
             </div>
           </article>
 
+          <!-- DANA BASIC -->
           <article class="unit-card">
-            <div class="unit-photo" style="background-image: url('https://drive.google.com/thumbnail?id=1B01x43t8Jpa8m-C3Eiz-4vdSJQfivhMU&sz=w1200');" role="img" aria-label="Dana Basic"></div>
+            <div class="unit-media">
+              <div class="unit-photo"
+                   data-exterior="https://drive.google.com/thumbnail?id=1B01x43t8Jpa8m-C3Eiz-4vdSJQfivhMU&sz=w1200"
+                   data-plan="https://drive.google.com/thumbnail?id=1utUdGVytr8mVWjG97bZkArrSbEpDJAD4&sz=w1200"
+                   style="background-image: url('https://drive.google.com/thumbnail?id=1B01x43t8Jpa8m-C3Eiz-4vdSJQfivhMU&sz=w1200');"
+                   role="img" aria-label="Dana Basic"></div>
+              <div class="unit-tabs">
+                <button type="button" class="unit-tab is-active" data-view="exterior">Exterior</button>
+                <button type="button" class="unit-tab" data-view="plan">Floor Plan</button>
+              </div>
+            </div>
             <div class="unit-top"><span class="unit-type">Basic model · With balcony</span><h3>Dana Basic</h3></div>
             <div class="unit-body">
               <div class="unit-price">Around ₱5.2M <small>Indicative listing price</small></div>
@@ -522,12 +943,23 @@
                 <div class="unit-spec"><strong>To confirm</strong><span>Lot area</span></div>
               </div>
               <p>A larger home option with room for family life to unfold, plus a balcony for a little pause at the start or end of the day.</p>
-              <div class="unit-foot">House details to explore</div>
+              <div class="unit-foot">Switch tabs above to view floor plan</div>
             </div>
           </article>
 
+          <!-- ERA -->
           <article class="unit-card">
-            <div class="unit-photo" style="background-image: url('https://drive.google.com/thumbnail?id=1PCvNOiowC0INWHx0wWzM5AXpcwberWUi&sz=w1200');" role="img" aria-label="Era"></div>
+            <div class="unit-media">
+              <div class="unit-photo"
+                   data-exterior="https://drive.google.com/thumbnail?id=1PCvNOiowC0INWHx0wWzM5AXpcwberWUi&sz=w1200"
+                   data-plan="https://drive.google.com/thumbnail?id=1EkPbc6cSz-wIsjFtzca7j5ZPMB5yx8x5&sz=w1200"
+                   style="background-image: url('https://drive.google.com/thumbnail?id=1PCvNOiowC0INWHx0wWzM5AXpcwberWUi&sz=w1200');"
+                   role="img" aria-label="Era"></div>
+              <div class="unit-tabs">
+                <button type="button" class="unit-tab is-active" data-view="exterior">Exterior</button>
+                <button type="button" class="unit-tab" data-view="plan">Floor Plan</button>
+              </div>
+            </div>
             <div class="unit-top"><span class="unit-type">Single-attached · With balcony</span><h3>Era</h3></div>
             <div class="unit-body">
               <div class="unit-price">Around ₱6.5M <small>Indicative listing price</small></div>
@@ -538,7 +970,7 @@
                 <div class="unit-spec"><strong>To confirm</strong><span>Lot area</span></div>
               </div>
               <p>A single-attached option with additional room for a larger household, guests, work-from-home needs, or the next season of family life.</p>
-              <div class="unit-foot">House details to explore</div>
+              <div class="unit-foot">Switch tabs above to view floor plan</div>
             </div>
           </article>
         </div>
@@ -686,6 +1118,60 @@
       });
       setTimeout(dismissPreloader, 1500);
     })();
+
+    // Hero automatic looping slideshow (3.5-second interval, hidden controls)
+    (function () {
+      const slides = document.querySelectorAll('#heroSlides .hero-slide');
+      if (slides.length <= 1) return;
+      let current = 0;
+      setInterval(() => {
+        slides[current].classList.remove('is-active');
+        current = (current + 1) % slides.length;
+        slides[current].classList.add('is-active');
+      }, 3500);
+    })();
+
+    // Amenities creative showcase auto-slider + dot switcher
+    (function () {
+      const slides = document.querySelectorAll('#amenityShowcase .amenity-slide');
+      const dots = document.querySelectorAll('#amenityDots .amenity-dot');
+      if (!slides.length) return;
+      let idx = 0;
+
+      function goToSlide(next) {
+        slides[idx].classList.remove('is-active');
+        if (dots[idx]) dots[idx].classList.remove('is-active');
+        idx = next % slides.length;
+        slides[idx].classList.add('is-active');
+        if (dots[idx]) dots[idx].classList.add('is-active');
+      }
+
+      dots.forEach((dot, i) => {
+        dot.addEventListener('click', () => goToSlide(i));
+      });
+
+      setInterval(() => goToSlide(idx + 1), 3500);
+    })();
+
+    // House Model Exterior / Floor Plan tab switcher
+    document.querySelectorAll('.unit-card').forEach(card => {
+      const photoEl = card.querySelector('.unit-photo');
+      const tabs = card.querySelectorAll('.unit-tab');
+      if (!photoEl || !tabs.length) return;
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          const view = tab.getAttribute('data-view');
+          const imgUrl = photoEl.getAttribute('data-' + view);
+          if (!imgUrl) return;
+
+          tabs.forEach(t => t.classList.remove('is-active'));
+          tab.classList.add('is-active');
+          photoEl.style.backgroundImage = "url('" + imgUrl + "')";
+          photoEl.classList.toggle('is-plan', view === 'plan');
+        });
+      });
+    });
 
     const form = document.getElementById('leadForm');
     const submitBtn = document.getElementById('submitBtn');
